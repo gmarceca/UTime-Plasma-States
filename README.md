@@ -1,18 +1,13 @@
 # UTime-Plasma-States
 
-Implementation of the U-Time model for time-series segmentation as described 
-in:
-
-Mathias Perslev, Michael Hejselbak Jensen, Sune Darkner, Poul Jørgen Jennum, 
-and Christian Igel. U-Time: A Fully Convolutional Network for Time Series 
-Segmentation Applied to Sleep Staging. Advances in Neural Information 
-Processing Systems (NeurIPS 2019) https://arxiv.org/abs/1910.11162
-
-The code was adapted from https://github.com/perslev/U-Time
-and applied in plasma states time series data segmentation
+Implementation of a U-Time model for time-series segmentation of plasma confinement states.
 
 Results were published in the [Machine Learning for Physical Sciences workshop](https://ml4physicalsciences.github.io/2020/)
 as part of NeurIPS 2020.
+
+The code was adapted from:
+https://github.com/perslev/U-Time
+https://arxiv.org/abs/1910.11162
 
 ## Installation
 <pre>
