@@ -46,8 +46,8 @@ https://github.com/tensorflow/tensorflow/issues/34759
 <b># Initialize a U-Time N-fold CV project</b>
 ut init_plasmastates --name my_utime_project \
         --model utime \
-        --data_dir new_dataset_plasma \
-        --CV 5
+        --data_dir dataset \
+        --CV 1
 (This prepares the settings to run all folds at once. If you want to focus on a particular fold 
 pass --fold 'your_fold_number' as an additional argument)
 
@@ -60,18 +60,6 @@ cd my_utime_project
     <b># Full N-fold CV training:</b>
     `cp ../extra_scripts/run.py .`
     python run.py
-
-<b># Predict and evaluate</b>
-ut evaluate_plasma_states --out_dir eval --data_split val_data --one_shot --overwrite
-(If you want to evaluate the model on a particular fold pass --fold 'your_fold_number' as an additional argument)
-
-To express the evaluation results in terms of the avg. kappa statistic (final score):
-`cp ../extra_scripts/unet_to_cnnLSTM_scores.py .`
-`python unet_to_cnnLSTM_scores.py --fold="your_fold_number"`
-
-<b># Print a confusion matrix</b>
-ut cm --true 'eval/test_data/files/*/true.npz' \
-      --pred 'eval/test_data/files/*/pred.npz'
 
 </pre>
 
