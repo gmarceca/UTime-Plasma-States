@@ -1,4 +1,4 @@
-# UTime-PlasmaStates
+# UTime-Plasma-States
 
 Implementation of the U-Time model for time-series segmentation as described 
 in:
@@ -6,16 +6,13 @@ in:
 Mathias Perslev, Michael Hejselbak Jensen, Sune Darkner, Poul Jørgen Jennum, 
 and Christian Igel. U-Time: A Fully Convolutional Network for Time Series 
 Segmentation Applied to Sleep Staging. Advances in Neural Information 
-Processing Systems (NeurIPS 2019)
-
-Pre-print version: 
-https://arxiv.org/abs/1910.11162
+Processing Systems (NeurIPS 2019) https://arxiv.org/abs/1910.11162
 
 The code was adapted from https://github.com/perslev/U-Time
 and applied in plasma states time series data segmentation
 
 Results were published in the [Machine Learning for Physical Sciences workshop](https://ml4physicalsciences.github.io/2020/)
-as part of the NIPS conference 2020.
+as part of NeurIPS 2020.
 
 ## Installation
 <pre>
@@ -34,9 +31,6 @@ as part of the NIPS conference 2020.
 tensorflow==2.0 --> tensorflow-gpu==2.0
 - tensorflow-gpu = 2.0 was compiled with cuda 10.0 and so if you want to use cuda 10.2 you would need to install TF from source
 https://github.com/tensorflow/tensorflow/issues/34759
-- spcpc395 has cuda 10.0 installed and is able to use TF 2.0, add the following to your .bashrc to call cuda binaries:
-`export PATH=/usr/local/cuda/bin:$PATH`
-`export LD_LIBRARY_PATH=/usr/local/cuda/extras/CUPTI/lib64:$LD_LIBRARY_PATH`
 - After UTime installation, check if tensorflow-gpu is working:
 `python -i`
 `import tensorflow as tf`
