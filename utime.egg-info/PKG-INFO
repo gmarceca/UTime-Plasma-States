@@ -1,0 +1,110 @@
+Metadata-Version: 1.1
+Name: utime
+Version: 0.0.1
+Summary: A deep learning framework for automatic PSG sleep analysis.
+Home-page: https://github.com/perslev/U-Time
+Author: Mathias Perslev
+Author-email: map@di.ku.dk
+License: LICENSE.txt
+Description: # UTime-PlasmaStates
+        
+        Implementation of the U-Time model for time-series segmentation as described 
+        in:
+        
+        Mathias Perslev, Michael Hejselbak Jensen, Sune Darkner, Poul Jørgen Jennum, 
+        and Christian Igel. U-Time: A Fully Convolutional Network for Time Series 
+        Segmentation Applied to Sleep Staging. Advances in Neural Information 
+        Processing Systems (NeurIPS 2019)
+        
+        Pre-print version: 
+        https://arxiv.org/abs/1910.11162
+        
+        The code was adapted to work in plasma states time series data
+        from https://github.com/perslev/U-Time
+        
+        ## TLDR: An end-to-end example
+        <pre>
+        <b># Clone repo and install</b>
+        mkdir UTime-PlasmaStates
+        cd UTime-PlasmaStates/
+        git clone --single-branch --branch UTime-PlasmaStates-V2 https://gitlab.epfl.ch/spc/tcv/event-detection.git
+        cd event-detection/algorithms/
+        pip install -e UTime-PlasmaStates
+        cd UTime-PlasmaStates/
+        
+        <b># Obtain dataset</b>
+        Validated inputs used for the work "F. Matos et al 2020 Nucl. Fusion 60 036022":
+        * https://www.dropbox.com/sh/ltbq66amde71avo/AAAfeImVkxVnPHbP_0-x1HJfa?dl=0
+        - 3 folders which contain the TCV\*.csv files for different shots labelled by three labelers (ffelici, maurizio and labit)
+        - The folder structure should be: UTime-PlasmaStates/'dataset'/'Validated'/'labeler_folders'/'\*.csv'
+        - In run TCV_31839_ffelici replace ';' by ',', otherwise you will get an error
+        
+        <b># Prepare dataset</b>
+        ut preprocess_plasma_state_data --data_dir dataset
+        
+        <b># Prepare a N-fold CV experiment</b>
+        ut cv_split_plasmastates --data_dir 'dataset' \
+                --subject_dir_pattern 'cluster_*' \
+                --CV 5 \
+                --selected_test_set \
+                --copy
+        
+        <b># Initialize a U-Time project</b>
+        ut init_plasmastates --name my_utime_project \
+                --model utime \
+                --data_dir dataset \
+                --fold xxx \
+                --CV 5
+        
+        <b># Start training</b>
+        cd my_utime_project
+        ut train_plasma_states_detector --num_GPUs=1
+        
+        <b># Predict and evaluate</b>
+        ut evaluate_plasma_states --out_dir eval --data_split val_data --one_shot --overwrite
+        
+        <b># Print a confusion matrix</b>
+        ut cm --true 'eval/test_data/files/*/true.npz' \
+              --pred 'eval/test_data/files/*/pred.npz'
+        
+        
+        <b># Print per-subject summary statistics</b>
+        ut summary --csv_pattern 'eval/test_data/evaluation_dice.csv' \
+                   --print_all
+        
+        <b># Output sleep stages for every 3 seconds of 100 Hz signal </b>
+        <b># Here, the 'folder_regex' matches 2 files in the dataset </b>
+        ut predict --folder_regex '../datasets/sleep-EDF-153/SC400[1-2]E0' \
+                   --out_dir high_res_pred \
+                   --data_per_prediction 300 \
+                   --one_shot
+        (need to test)
+        
+        </pre>
+         
+        ## DIS tool GUI evaluation
+        Command to run from DIS_tool_GUI the UTime model in a given shot (e.g 61274)
+        
+        IN: TCV_61274_signals.csv
+        
+        OU: TCV_61274_UTime_det.csv
+        
+        `python UTime-PlasmaStates/utime/bin/evaluate_plasma_states.py --out_dir eval
+         --data_split val_data --one_shot
+         --overwrite --run_from_GUI
+         --shot=61274 --no_save --num_GPUs=0`
+        
+        
+        
+        History
+        -------
+        
+        0.0.1 (2019-01-11)
+        --------------------
+        * Project created and packaged
+        
+Platform: UNKNOWN
+Classifier: Environment :: Console
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7License :: OSI Approved :: MIT License
