@@ -5,8 +5,8 @@ Implementation of a U-Time model for time-series segmentation of plasma confinem
 Results were published in the [Machine Learning for Physical Sciences workshop](https://ml4physicalsciences.github.io/2020/)
 as part of NeurIPS 2020.
 
-The code was adapted from:\
-https://github.com/perslev/U-Time\
+The code was adapted from:\\
+https://github.com/perslev/U-Time\\
 https://arxiv.org/abs/1910.11162
 
 ## Installation
